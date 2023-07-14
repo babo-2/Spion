@@ -1,27 +1,99 @@
 
+body {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: grey;
+}
 
-@media (max-width: 480px) {
-  .all_buttons {
+.all_buttons {
+    display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    overflow: hidden;
+}
 
-  .main-button {
-    position: absolute;
-    font-size: 24px;
-    padding: 10px 20px;
-    width: 100px;
-  }
+#group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-  .dropdown-button {
-    font-size: 24px;
-    padding: 10px 20px;
-    width: 100px;
-  }
 
-  .dropdown {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
+.main-button,.dropdown-button {
+    width: 40vw;
+    height: 10vh;
+    font-size: 300%;
+}
+
+.dropdown-button{
+  background-color: #003366;
+}
+
+.main-button{
+    margin-top: 10vh;
+    background-color: red;
+}
+
+.dropdown {
+  height: 0;
+  overflow: hidden;
+  list-style: none;
+  transition: height 0.8s;
+}
+
+.add_text, .delete_all{
+  width: 30vw;
+  height: 7vh;
+  font-size: 200%;
+  margin-top: 10px;
+}
+
+.Item{
+  font-size: 5vw;
+  flex: 1;
+  height: 100%;
+}
+
+.rotate {
+  transition: transform 0.8s;
+  display: inline-block;
+}
+
+.Start_button {
+  position: relative;
+  background-color: green;
+  font-size: 17vw;
+  top: 10%;
+  left: 28.8vw;
+  width: 40vw;
+}
+
+.blank-content{
+   height: 40vh;
+}
+
+.RemoveButton{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px; /* Adjust the width to match the height */
+  height: 40%;
+  padding: 0; /* Remove padding */
+  text-align: center;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3vw;
+  /* Add any additional styles for your button */
+}
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100px; /* Adjust the height to your needs */
 }
