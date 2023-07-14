@@ -5,11 +5,22 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='Main/style.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <div class="all_buttons"></div>
+    <button class="Add_group">ADD</button>
     <button class="Start_button">Start</button>
     <script src="{{ url_for('static', filename='Main/script.js') }}"></script>
-    <div class="blank-content"></div>
+    <div class="blank-content">
+      <p class="copyright">&copy; made by babo_2</p>
+    </div>
+    <script>
+      var data = "{{ data }}";
+      set_data(data);
+    </script>
   </body>
 </html>
