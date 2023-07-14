@@ -1,5 +1,5 @@
 
-const buttonsData = [
+var buttonsData = [
     {
       name: 'Ort',
       items: ['Bauernhof', 'Parkplatz', 'Baustelle'],
@@ -21,7 +21,17 @@ const buttonsData = [
       activated: false,
     }
   ];
-  
+
+function set_data(data){
+   var dataw = JSON.parse(data.replaceAll("&#34;", '"').replaceAll("False", "false"))
+   buttonsData = dataw
+   console.log(buttonsData)
+   for (var i =0;i<buttonsData.length; i++){
+      addButton(buttonsData[i])
+   }
+}
+
+
 function addButton(buttonData) {
       main_div = document.querySelector(".all_buttons")
       div = document.createElement('div');
@@ -39,6 +49,13 @@ function addButton(buttonData) {
       dropdown_button.appendChild(dropdown_text)
       main_button.className = "main-button"
       main_button.textContent = buttonData["name"]
+      console.log(buttonData["name"], buttonData["activated"])
+      if (buttonData["activated"]){
+        main_button.style.backgroundColor = "green"
+      }else{
+        main_button.style.backgroundColor = "red"
+      }
+      
 
       main_button.addEventListener('click', function() {
           var parentElement = this.parentElement;
@@ -163,12 +180,13 @@ function add_item(dropdown, text_content, appendlast=false){
     a = document.createElement("a")
     remove = document.createElement("button")
     dropdown_item = document.createElement("div")
-
+    
     dropdown_item.className = "container"
     a.textContent = text_content
     a.className = "Item"
-
-    remove.textContent = "-"
+    
+    remove.textContent = ""
+    remove.innerHTML = "<i class='fa fa-trash-o'></i>";
     remove.backgroundColor = "red"
     remove.className = "RemoveButton"
 
@@ -187,9 +205,7 @@ function add_item(dropdown, text_content, appendlast=false){
           parent_.parentNode.removeChild(childNodes[i]);
           break
         }
-        
       }
-      
       save()
       delete parent_
     })
@@ -207,21 +223,15 @@ function add_item(dropdown, text_content, appendlast=false){
 function save(){
   console.log("save")
   const url = '/save';
-  var data = {}
-  for (let i = 0; i < buttonsData.length; i++) {
-    if (buttonsData[i]["activated"]){
-      data[buttonsData[i]["name"]] = buttonsData[i]["items"]
-    }
-  }
 
-  console.log(data)
+  console.log(buttonsData)
 
   fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)})
+    body: JSON.stringify(buttonsData)})
     .then(response => response.json())
     .then(responseData => {
       console.log(responseData);
@@ -236,7 +246,23 @@ document.querySelector(".Start_button").addEventListener("click", function(){
   window.location.pathname = "/ready";
 })
 
-addButton(buttonsData[0])
-addButton(buttonsData[1])
-addButton(buttonsData[2])
-addButton(buttonsData[3])
+document.querySelector(".Add_group").addEventListener("click", function(){
+  while (true){
+    value = prompt("Group name")
+    if (value == null || value == ""){
+      return
+    }
+    if (value.length > 40){
+      alert("Name to long use under 40 letters")
+      continue
+      }
+    break
+  }
+  data = {}
+  data["name"] = value
+  data["activated"] = false
+  data["items"] = []
+  buttonsData.push(data)
+  addButton(data)
+  save()
+})

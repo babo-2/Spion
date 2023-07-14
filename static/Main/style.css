@@ -66,17 +66,18 @@ body {
   position: relative;
   background-color: green;
   font-size: 17vw;
-  top: 10%;
-  left: 28.8vw;
+  top: 30%;
+  right: 11.5vw;
   width: 40vw;
 }
 
 .blank-content{
-   height: 40vh;
+   height: 60vh;
 }
 
 .RemoveButton{
   position: absolute;
+  background-color: red;
   right: 0;
   top: 0;
   width: 40px; /* Adjust the width to match the height */
@@ -96,4 +97,23 @@ body {
   display: flex;
   align-items: center;
   height: 100px; /* Adjust the height to your needs */
+}
+
+.Add_group{
+  position: relative;
+  background-color: green;
+  font-size: 10vw;
+  top: 5%;
+  left: 28.8vw;
+  width: 40vw;
+}
+
+.fa fa-trash-o{
+  font-size: larger;
+}
+
+.copyright{
+  position: relative;
+  top: 95%;
+  font-size: 5vw;
 }
