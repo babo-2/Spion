@@ -1,13 +1,42 @@
 from flask import Flask, render_template, request, make_response
 import json
-import time
+import os
 
 app = Flask(__name__)
+
+default_data = [
+    {
+        "name": 'Ort',
+        "items": ['Bauernhof', 'Parkplatz', 'Baustelle'],
+        "activated": False,
+    },
+    {
+        "name": 'Land',
+        "items": ['Deutschland', 'Frankreich', 'Russland'],
+        "activated": False,
+    },
+    {
+        "name": 'Stadt',
+        "items": ['München', 'Paris', 'Washington'],
+        "activated": False,
+    },
+    {
+        "name": 'Person',
+        "items": ['John Cina', 'Scholz something', 'Washington I-forgot'],
+        "activated": False,
+    }
+]
 
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    data = []
+    if "data" not in request.cookies.keys():
+        data = default_data
+    else:
+        data = request.cookies.get("data")
+
+    return render_template("index.html", data=data)
 
 
 @app.route("/ready")
@@ -25,22 +54,31 @@ def game():
         return render_template("ready.html")
 
     items = []
-    keys = list(request.cookies.keys())
-    for key in keys:
-        items += request.cookies.get(key).split(",")
+    groups = []
+    data = []
+    if "data" not in request.cookies.keys():
+        data = default_data
+    else:
+        data = json.loads(request.cookies.get("data"))
 
-    return render_template("game.html", groups=keys, items=items)
+    for key in data:
+
+        if key["activated"]:
+            groups.append(key["name"])
+            items += key["items"]
+
+    return render_template("game.html", groups=groups, items=items)
 
 
 @app.route("/save", methods=['POST'])
 def save():
     response = make_response("save data")
     data = request.get_json()
-    print(data)
-    for key in data:
-        response.set_cookie(key, ",".join(data.get(key)))
+
+    response.set_cookie("data", json.dumps(data))
+
     return response
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(debug=False, host="0.0.0.0", port=os.getenv("PORT", default=3891))
