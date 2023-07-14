@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='Game/style.css') }}"
+    />
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      const players_amount = urlParams.get("players");
+      const spies_amount = urlParams.get("spies");
+
+      const newURL = "/game";
+      history.pushState(null, "", newURL);
+
+      function getRandomNumbers(x, n) {
+        var numbers = [];
+
+        // Create an array with numbers from 1 to n
+        for (var i = 1; i <= n; i++) {
+          numbers.push(i);
+        }
+
+        var randomNumbers = [];
+
+        // Select x random numbers from the array without duplicates
+        for (var j = 0; j < x; j++) {
+          var randomIndex = Math.floor(Math.random() * numbers.length);
+          var randomNumber = numbers[randomIndex];
+
+          // Remove the selected number from the array
+          numbers.splice(randomIndex, 1);
+
+          randomNumbers.push(randomNumber);
+        }
+
+        return randomNumbers;
+      }
+
+      var items = "{{ items }}";
+      var groups = "{{ groups }}";
+
+      items = items.replace(/&#39;/g, '"');
+      groups = groups.replace(/&#39;/g, '"');
+
+      items = items.slice(1, -1).split(", ");
+      groups = groups.slice(1, -1).split(", ");
+
+      console.log(items);
+      console.log(items[1]);
+      console.log(groups);
+
+      var spies = getRandomNumbers(spies_amount, players_amount);
+
+      var word = items[Math.floor(Math.random() * items.length)];
+
+      console.log(word);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".groups").innerHTML =
+          "Groups: " + groups.join(", ");
+      });
+
+      function removelisteners(button) {
+        const parent = button.parentNode;
+
+        // Clone the button to remove it from the DOM
+        const buttonClone = button.cloneNode(true);
+
+        // Replace the original button with the cloned version
+        parent.replaceChild(buttonClone, button);
+        return button;
+      }
+
+      function reveal() {
+        button = document.querySelector(".reveal");
+
+        if (button.dataset.num == null) {
+          button.dataset.num = 1;
+        }
+
+        i = parseInt(button.dataset.num);
+
+        if (button.innerText == "Hide") {
+          document.querySelector(".text").textContent = "";
+          i += 1;
+          button.dataset.num = i;
+          button.innerText = "Reveal " + i;
+          if (i - 1 == players_amount) {
+            button.innerText = "FINISH";
+          }
+          return;
+        }
+
+        console.log(i);
+        if (spies.includes(i)) {
+          document.querySelector(".text").innerText = "You are a Spy";
+        } else {
+          document.querySelector(".text").innerText = "The Word is " + word;
+        }
+        button.innerText = "Hide";
+      }
+    </script>
+  </head>
+  <body>
+    <a class="text"></a>
+    <button class="reveal" onclick="reveal()">Reveal 1</button>
+    <a class="groups"></a>
+  </body>
+</html>
