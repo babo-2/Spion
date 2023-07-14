@@ -7,6 +7,11 @@ body {
     background-color: grey;
 }
 
+button{
+  border: none;
+  color: black;
+}
+
 .all_buttons {
     display: flex;
     flex-direction: column;
@@ -20,7 +25,6 @@ body {
     align-items: center;
     margin-bottom: 10px;
 }
-
 
 .main-button,.dropdown-button {
     width: 40vw;
@@ -65,14 +69,24 @@ body {
 .Start_button {
   position: relative;
   background-color: green;
-  font-size: 17vw;
-  top: 30%;
+  font-size: 10vw;
+  top: 300px;
   right: 11.5vw;
+  width: 40vw;
+  
+}
+
+.Add_group{
+  position: relative;
+  background-color: green;
+  font-size: 10vw;
+  top: 0%;
+  left: 28.8vw;
   width: 40vw;
 }
 
 .blank-content{
-   height: 60vh;
+   height: 70vh;
 }
 
 .RemoveButton{
@@ -97,15 +111,6 @@ body {
   display: flex;
   align-items: center;
   height: 100px; /* Adjust the height to your needs */
-}
-
-.Add_group{
-  position: relative;
-  background-color: green;
-  font-size: 10vw;
-  top: 5%;
-  left: 28.8vw;
-  width: 40vw;
 }
 
 .fa fa-trash-o{

@@ -22,14 +22,14 @@ var buttonsData = [
     }
   ];
 
-function set_data(data){
-   var dataw = JSON.parse(data.replaceAll("&#34;", '"').replaceAll("False", "false"))
-   buttonsData = dataw
-   console.log(buttonsData)
-   for (var i =0;i<buttonsData.length; i++){
-      addButton(buttonsData[i])
-   }
-}
+  function set_data(data){
+    var dataw = JSON.parse(data.replaceAll("&#34;", '"').replaceAll("&#39;", '"').replaceAll("False", "false"))
+    buttonsData = dataw
+    console.log(buttonsData)
+    for (var i =0;i<buttonsData.length; i++){
+       addButton(buttonsData[i])
+    }
+ }
 
 
 function addButton(buttonData) {
