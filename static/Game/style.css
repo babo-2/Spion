@@ -5,21 +5,21 @@ body{
 .text{
     position: absolute;
     font-size: 5vw;
-    right: 30%;
-    top: 25%;
+    right: 25%;
+    top: 30%;
 }
 
 .groups{
     position: absolute;
     font-size: 5vw;
-    top: 90%;
-    right: 56%;
+    top: 80%;
+    right: 25%;
 }
 
 .reveal{
     position: absolute;
     top: 50%;
-    right: 30%;
+    right: 25%;
     width: 60vw;
     height: 15vh;
     font-size: 8vw;
