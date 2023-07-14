@@ -1,0 +1,27 @@
+body{
+    background-color: grey;
+}
+
+.text{
+    position: absolute;
+    font-size: 5vw;
+    right: 30%;
+    top: 25%;
+}
+
+.groups{
+    position: absolute;
+    font-size: 5vw;
+    top: 90%;
+    right: 56%;
+}
+
+.reveal{
+    position: absolute;
+    top: 50%;
+    right: 30%;
+    width: 60vw;
+    height: 15vh;
+    font-size: 8vw;
+    background-color: aqua;
+}
